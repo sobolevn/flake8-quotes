@@ -114,7 +114,7 @@ class QuoteChecker(object):
                           choices=sorted(cls.DOCSTRING_QUOTES.keys()),
                           help='Quote to expect in all files (default: """)')
         cls._register_opt(parser, '--no-avoid-escape', dest='avoid_escape', default=None, action='store_false',
-                          parse_from_config=True,
+                          parse_from_config=True, type='string',
                           help='Disable avoiding escaping same quotes in inline strings')
 
     @classmethod
