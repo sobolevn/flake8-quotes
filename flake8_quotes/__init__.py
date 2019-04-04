@@ -115,7 +115,7 @@ class QuoteChecker(object):
                           help='Quote to expect in all files (default: """)')
         cls._register_opt(parser, '--avoid-escape', default=None, action='store',
                           parse_from_config=True, type='choice',
-                          choices=['true','false'],
+                          choices=[True, False],
                           help='Avoid escapes in inline strings (allowed: "true", "false",  default: "true")')
 
     @classmethod
@@ -150,10 +150,9 @@ class QuoteChecker(object):
         if hasattr(options, 'docstring_quotes') and options.docstring_quotes is not None:
             cls.config.update(cls.DOCSTRING_QUOTES[options.docstring_quotes])
 
-        # If allow-escaped specified, add to config
+        # If avoid escaped specified, add to config
         if hasattr(options, 'avoid_escape') and options.avoid_escape is not None:
-            avoid_escape = {'true': True, 'false': False}[options.avoid_escape]
-            cls.config.update({'avoid_escape': avoid_escape})
+            cls.config.update({'avoid_escape': options.avoid_escape})
 
     def get_file_contents(self):
         if self.filename in ('stdin', '-', None):
@@ -242,9 +241,9 @@ class QuoteChecker(object):
                 #   "This is a 'string'"     -> Good        Avoids escaped inner quotes
                 #   "This is a \"string\""   -> Bad (Q000)
                 #   "\"This\" is a 'string'" -> Bad (Q000)
-                
+
                 string_contents = unprefixed_string[1:-1]
-                
+
                 # If string preferred type, check for escapes
                 if last_quote_char == self.config['good_single']:
                     if not self.config['avoid_escape']:
@@ -256,7 +255,7 @@ class QuoteChecker(object):
                             'col': start_col,
                         }
                     continue
-                
+
                 # If not preferred type, only allow use to avoid escapes.
                 if not self.config['good_single'] in string_contents or self.config['bad_single'] in string_contents:
                     yield {
@@ -264,7 +263,7 @@ class QuoteChecker(object):
                         'line': start_row,
                         'col': start_col,
                     }
-        
+
 
 
 class Token:

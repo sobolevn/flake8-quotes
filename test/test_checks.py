@@ -189,7 +189,7 @@ class AvoidEscapeTestChecks(TestCase):
     def test_singles_avoid(self):
         class Options():
             inline_quotes = "'"
-            avoid_escape = 'true'
+            avoid_escape = True
         QuoteChecker.parse_options(Options)
 
         singles_checker = QuoteChecker(None, filename=get_absolute_path('data/escaped_prefer_singles.py'))
@@ -203,7 +203,7 @@ class AvoidEscapeTestChecks(TestCase):
     def test_singles_allow(self):
         class Options():
             inline_quotes = "'"
-            avoid_escape = 'false'
+            avoid_escape = False
         QuoteChecker.parse_options(Options)
 
         singles_checker = QuoteChecker(None, filename=get_absolute_path('data/escaped_prefer_singles.py'))
