@@ -150,6 +150,7 @@ class QuoteChecker(object):
 
         # If avoid escaped specified, add to config
         if hasattr(options, 'avoid_escape') and options.avoid_escape is not None:
+            print(options.avoid_escape)
             cls.config.update({'avoid_escape': options.avoid_escape})
         else:
             cls.config.update({'avoid_escape': True})
