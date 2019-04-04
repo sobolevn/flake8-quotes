@@ -152,7 +152,7 @@ class QuoteChecker(object):
         if hasattr(options, 'avoid_escape') and options.avoid_escape is not None:
             cls.config.update({'avoid_escape': options.avoid_escape})
         else:
-            cls.config.update({'avoid_escape': False})
+            cls.config.update({'avoid_escape': True})
 
     def get_file_contents(self):
         if self.filename in ('stdin', '-', None):
