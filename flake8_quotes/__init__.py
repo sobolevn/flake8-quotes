@@ -244,21 +244,22 @@ class QuoteChecker(object):
                 #   "This is a 'string'"     -> Good        Avoids escaped inner quotes
                 #   "This is a \"string\""   -> Bad (Q000)
                 #   "\"This\" is a 'string'" -> Good
-                
+
                 string_contents = unprefixed_string[1:-1]
-                
+
                 # If string preferred type, check for escapes
                 if last_quote_char == self.config['good_single']:
                     if not self.config['avoid_escape']:
                         continue
-                    if self.config['good_single'] in string_contents and not self.config['bad_single'] in string_contents:
+                    if (self.config['good_single'] in string_contents and
+                            not self.config['bad_single'] in string_contents):
                         yield {
                             'message': 'Q003 Change outer quotes to avoid escaping inner quotes',
                             'line': start_row,
                             'col': start_col,
                         }
                     continue
-                
+
                 # If not preferred type, only allow use to avoid escapes.
                 if not self.config['good_single'] in string_contents:
                     yield {
@@ -266,7 +267,6 @@ class QuoteChecker(object):
                         'line': start_row,
                         'col': start_col,
                     }
-        
 
 
 class Token:
