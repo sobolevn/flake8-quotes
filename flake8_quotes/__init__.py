@@ -24,51 +24,51 @@ class QuoteChecker(object):
 
     INLINE_QUOTES = {
         # When user wants only single quotes
-        '\'': {
-            'good_single': '\'',
+        "'": {
+            'good_single': "'",
             'bad_single': '"',
         },
         # When user wants only double quotes
         '"': {
             'good_single': '"',
-            'bad_single': '\'',
+            'bad_single': "'",
         },
     }
     # Provide aliases for Windows CLI support
     #   https://github.com/zheller/flake8-quotes/issues/49
-    INLINE_QUOTES['single'] = INLINE_QUOTES['\'']
+    INLINE_QUOTES['single'] = INLINE_QUOTES["'"]
     INLINE_QUOTES['double'] = INLINE_QUOTES['"']
 
     MULTILINE_QUOTES = {
-        '\'': {
-            'good_multiline': '\'\'\'',
+        "'": {
+            'good_multiline': "'''",
             'bad_multiline': '"""',
         },
         '"': {
             'good_multiline': '"""',
-            'bad_multiline': '\'\'\'',
+            'bad_multiline': "'''",
         },
     }
     # Provide Windows CLI and multi-quote aliases
-    MULTILINE_QUOTES['single'] = MULTILINE_QUOTES['\'']
+    MULTILINE_QUOTES['single'] = MULTILINE_QUOTES["'"]
     MULTILINE_QUOTES['double'] = MULTILINE_QUOTES['"']
-    MULTILINE_QUOTES['\'\'\''] = MULTILINE_QUOTES['\'']
+    MULTILINE_QUOTES["'''"] = MULTILINE_QUOTES["'"]
     MULTILINE_QUOTES['"""'] = MULTILINE_QUOTES['"']
 
     DOCSTRING_QUOTES = {
-        '\'': {
-            'good_docstring': '\'\'\'',
+        "'": {
+            'good_docstring': "'''",
             'bad_docstring': '"""',
         },
         '"': {
             'good_docstring': '"""',
-            'bad_docstring': '\'\'\'',
+            'bad_docstring': "'''",
         },
     }
     # Provide Windows CLI and docstring-quote aliases
-    DOCSTRING_QUOTES['single'] = DOCSTRING_QUOTES['\'']
+    DOCSTRING_QUOTES['single'] = DOCSTRING_QUOTES["'"]
     DOCSTRING_QUOTES['double'] = DOCSTRING_QUOTES['"']
-    DOCSTRING_QUOTES['\'\'\''] = DOCSTRING_QUOTES['\'']
+    DOCSTRING_QUOTES["'''"] = DOCSTRING_QUOTES["'"]
     DOCSTRING_QUOTES['"""'] = DOCSTRING_QUOTES['"']
 
     def __init__(self, tree, filename='(none)'):
@@ -101,10 +101,10 @@ class QuoteChecker(object):
                           parse_from_config=True, type='choice',
                           choices=sorted(cls.INLINE_QUOTES.keys()),
                           help='Deprecated alias for `--inline-quotes`')
-        cls._register_opt(parser, '--inline-quotes', default='\'',
+        cls._register_opt(parser, '--inline-quotes', default="'",
                           action='store', parse_from_config=True, type='choice',
                           choices=sorted(cls.INLINE_QUOTES.keys()),
-                          help='Quote to expect in all files (default: \')')
+                          help="Quote to expect in all files (default: ')")
         cls._register_opt(parser, '--multiline-quotes', default=None, action='store',
                           parse_from_config=True, type='choice',
                           choices=sorted(cls.MULTILINE_QUOTES.keys()),
@@ -125,7 +125,7 @@ class QuoteChecker(object):
         # Define our default config
         # cls.config = {good_single: ', good_multiline: ''', bad_single: ", bad_multiline: """}
         cls.config = {}
-        cls.config.update(cls.INLINE_QUOTES['\''])
+        cls.config.update(cls.INLINE_QUOTES["'"])
         cls.config.update(cls.MULTILINE_QUOTES['"""'])
         cls.config.update(cls.DOCSTRING_QUOTES['"""'])
 
